@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Locale file translator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='translator.css') }}">
+</head>
+<body>
+    <h1>Translate a locale file</h1>
+
+    <form method="post" action="/translate" enctype="multipart/form-data">
+        <label>File
+            <input type="file" name="file" accept=".json,.po,.pot,.xliff,.xlf,.csv,.xml,.strings,.md,.html,.txt">
+        </label>
+        <label class="check">
+            <input type="checkbox" name="sample" value="1" {% if sample %}checked{% endif %}>
+            Use the sample file (samples/en.json) when no file is chosen
+        </label>
+
+        <fieldset>
+            <legend>Translate into</legend>
+            {% for code, name in languages.items() %}
+                <label class="check">
+                    <input type="checkbox" name="targets" value="{{ code }}" {% if code in targets %}checked{% endif %}>
+                    {{ name }}
+                </label>
+            {% endfor %}
+        </fieldset>
+
+        <label>Context
+            <small>What the strings are and who reads them, such as 'Buttons and labels of a checkout page'</small>
+            <textarea name="context" rows="2">{{ context }}</textarea>
+        </label>
+
+        {% if error %}
+            <div class="error">
+                <p>{{ error }}</p>
+                {% if fields %}<ul>{% for message in fields %}<li>{{ message }}</li>{% endfor %}</ul>{% endif %}
+            </div>
+        {% endif %}
+
+        <button type="submit">Translate</button>
+    </form>
+
+    {% if result %}
+        <p class="summary">
+            Format: {{ result.format }}. Strings: {{ '{:,}'.format(result.strings) }}.
+            Credits charged: {{ '{:,}'.format(result.charged) }}.
+            {% if result.remaining is not none %}Credits left: {{ '{:,}'.format(result.remaining) }}.{% endif %}
+        </p>
+
+        {% if result.test %}
+            <p class="notice">Test key: every translation comes back marked, like [es] Hello, and nothing is charged. Use a live key for real translations.</p>
+        {% endif %}
+
+        {% for file in result.files %}
+            <article>
+                <h2>{{ languages.get(file.language, file.language) }}: <code>{{ file.name }}</code></h2>
+                {% if file.intact %}
+                    <p class="intact">Intact: everything protected came back.</p>
+                {% else %}
+                    <p class="error">A placeholder or tag did not come back. Check it before shipping.</p>
+                {% endif %}
+                <pre>{{ file.content }}</pre>
+                <a href="data:application/octet-stream;base64,{{ file.content | base64 }}" download="{{ file.name }}">Download {{ file.name }}</a>
+            </article>
+        {% endfor %}
+    {% endif %}
+</body>
+</html>

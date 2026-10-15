@@ -1,0 +1,21 @@
+{
+    "nav": {
+        "home": "Home",
+        "settings": "Settings"
+    },
+    "welcome": "Welcome back, {name}!",
+    "cart": {
+        "items": "You have {count} items in your cart",
+        "add": "Add to cart",
+        "promo": "<strong>Free</strong> shipping on orders over {amount}"
+    },
+    "orders": {
+        "shipped": "Your order for %(name)s has shipped",
+        "returns": "You have %d days to return it"
+    },
+    "help": "Questions? Read the guide at https://example.com/help",
+    "errors": {
+        "required": "This field is required",
+        "network": "Something went wrong. Please try again."
+    }
+}

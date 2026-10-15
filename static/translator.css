@@ -1,0 +1,18 @@
+:root { --ink: #1d1d1b; --lime: #d1ff8f; --green: #009e4d; --mist: #f7f8f9; --line: #e2e8f3; }
+body { font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; max-width: 42rem; margin: 3rem auto; padding: 0 1rem; color: var(--ink); background: #fff; }
+form { display: grid; gap: 1rem; margin: 1.5rem 0 2.5rem; }
+label { display: grid; gap: .25rem; font-weight: 600; }
+label.check { display: flex; gap: .5rem; align-items: center; font-weight: 400; }
+small { font-weight: 400; color: #5b6170; }
+fieldset { display: flex; flex-wrap: wrap; gap: .4rem 1.25rem; margin: 0; padding: .6rem 1rem .8rem; border: 1px solid var(--line); border-radius: .5rem; }
+legend { font-weight: 600; padding: 0 .3rem; }
+input[type=file], textarea { box-sizing: border-box; width: 100%; min-width: 0; font: inherit; font-weight: 400; padding: .5rem .6rem; border: 1px solid var(--line); border-radius: .4rem; background: var(--mist); }
+button { justify-self: start; font: inherit; font-weight: 600; padding: .55rem 1.3rem; border: 0; border-radius: 99px; background: var(--ink); color: var(--lime); cursor: pointer; }
+article { border-top: 1px solid var(--line); padding: 1rem 0; }
+h2 { font-size: 1.05rem; margin: 0 0 .25rem; overflow-wrap: anywhere; }
+pre { background: var(--mist); border: 1px solid var(--line); border-radius: .4rem; padding: .75rem; max-height: 20rem; overflow: auto; font-size: .85rem; }
+a { color: var(--green); font-weight: 600; }
+.intact { color: var(--green); margin: 0; }
+.error { color: #b42318; margin: 0; }
+.error p, .error ul { margin: 0; }
+.notice { background: var(--lime); padding: .6rem .8rem; border-radius: .4rem; }
